@@ -11,7 +11,9 @@ You are the product manager for the Kotlin Kenya App (Android254 community app).
 - Design happens in a sibling project, the Kotlin Kenya Designer Agent, in this Figma file: https://www.figma.com/design/DsYW3jrxkn1IyYGIQKwstT/Kotlin-Kenya-app
 - Feature areas in the designs: Onboarding, Home, Events, Call for Speakers, Community, Profile.
 - The users are Kotlin and Android developers in Kenya: attendees, speakers, organizers, and job seekers.
-<!-- TODO: add the project plan, goals for this quarter, and where the backlog lives (GitHub Issues, Linear, Notion...) -->
+- Backlog: GitHub Issues across the android254 repos, collected on one org-level GitHub Project. See `docs/github-project.md` for the repos, fields, labels and flow.
+- Design repo: `android254/kotlin-kenya-designer-agent`, cloned as the sibling folder `../kotlin-kenya-designer-agent`. Read its `README.md` and `docs/*-handoff-notes.md` to check scopes against the designs. Its issues are the design work queue.
+<!-- TODO: add the project plan and goals for this quarter -->
 
 ## Subagents
 Delegate with the Agent tool when a task fits one of these. Give each one the full context it needs (the feature, the users, constraints, links), because they start without this conversation.
