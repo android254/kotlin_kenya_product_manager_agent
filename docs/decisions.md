@@ -38,3 +38,18 @@
 **Status:** not decided. The product owner will go through it during onboarding. Until then, scopes cover the app only. Any scope that needs an organizer tool (event setup, check-in, sponsor reports) flags that need instead of assuming where the tool lives.
 
 **Needs an answer:** one web platform with organizer features switched on per user, or two separate platforms? Who uses each one? Which parts ship before the January testing window?
+
+## 2026-10-02: Stack for the MVP
+**Decision:** The app is Kotlin Multiplatform with Compose Multiplatform, for Android and iOS. The backend is Supabase (Postgres, Auth, Storage, Edge Functions) for the MVP.
+
+**Why:** It's quick to go from idea to production with Supabase, and it works well with AI agents. That fits a 4-engineer team with about 7 weeks of build time.
+
+**Follow-ups:**
+- Organizers use Supabase Studio as the admin tool until the web platform exists. Organizers need to confirm this works for them; see `docs/mvp.md`.
+- Every table needs row-level security from day one, because the app talks to Supabase directly.
+- Review after the open-source release: do we stay on Supabase or move? Contributors will need a local Supabase setup and seed data.
+
+## 2026-10-02: The MVP is a trimmed set of the designs (draft)
+**Decision (draft until organizers review it):** January testing covers 10 features: foundation, sign-in and onboarding, Home, Events, ticket and check-in, Submit a talk, Profile and settings, Jobs, Sponsors, and push reminders (should have). Everything else is planned for later, in the order listed in `docs/mvp.md`.
+
+**Why:** Each feature has to give members, speakers or sponsors something they use right away, and the whole set has to fit about 100 engineer-days.

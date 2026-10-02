@@ -15,7 +15,7 @@ Last updated 2026-10-02. Dates are targets, not promises.
 - **The designs already cover far more than 8 weeks of build** (sponsors, mentorship, posters, Kiswahili, event-day mode and more). Most of it will be cut from phase 1 on purpose. Cutting it doesn't mean it's dropped.
 - **The web platform** (public and organizer) is in scope, but its shape isn't decided yet (see `docs/decisions.md`). Before the January testing window, the app may need at least a minimal organizer tool to create events.
 
-## Open questions
-- Who are the January testers? Core organizers only, one chapter's members, or anyone who signs up?
-- Who's building in Nov–Dec, and how many people? That decides how many scopes fit.
-- What's the backend, and does it already exist? It affects the size of every scope.
+## Answered (2026-10-02)
+- **Testers:** the co-organizing team, Nairobi chapter members, and anyone who signs up. Open sign-up means public test tracks.
+- **Builders:** about 4 engineers in Nov–Dec, so about 100 engineer-days of feature work. The MVP cut is in `docs/mvp.md`; the tasks and sprint plan are in `docs/scopes/mvp-january.md`.
+- **Backend:** Supabase for the MVP.
