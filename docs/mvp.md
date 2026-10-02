@@ -1,6 +1,6 @@
 # MVP for January testing
 
-Last updated 2026-10-02. Status: **draft for organizer review**.
+Last updated 2026-10-02. Status: **draft for organizer review**. The product owner confirmed the borderline items on 2026-10-02: check-in scanner, push reminders, Content tab and post-event ratings are all in.
 
 ## The bet
 By January, a Nairobi chapter member can sign in, find the next meetup, RSVP, get in at the door, and submit a talk. Sponsors are visible on the events they back and can list jobs. Everything else in the designs waits for a later phase. It isn't dropped.
@@ -35,28 +35,49 @@ Sizes are rough (S = under a day, M = 1–3 days, L = 3–5 days). The task-scop
 | 7 | **Profile and settings** | Own profile (from GitHub, editable bio, topics, links), my RSVPs, my talks. Settings: theme follows the system, sign out, **delete account** (required by both stores), privacy policy and code of conduct links | Public profile and share card, Open to work, achievements, Member profile, the full privacy controls |
 | 8 | **Jobs** | The Jobs tab: job list and Job detail with an external apply link. Organizers post jobs in Studio. Featured and sponsor badge | Roles matching your topics, company pages, job poster stats, job alerts |
 | 9 | **Sponsors** | `SponsorRow` on Event detail, an "Our sponsors" list and a simple Sponsor detail (logo, about, link, open roles). Events record views, RSVPs and check-ins for the future report | Impact report, booth leads, challenges and badges, sponsor polls, `SponsorMarquee`, automatic logo plates |
-| 10 | **Push reminders** *(should have)* | A reminder the day before an RSVP'd event. A notice when a talk's status changes | The Notifications screen and its list, notification settings |
+| 10 | **Push reminders** | A reminder the day before an RSVP'd event. A notice when a talk's status changes | The Notifications screen and its list, notification settings |
 
-**Community tab in the MVP:** only Jobs ships. The Content tab is a list of external links (articles on Medium), which is cheap, so it goes in if there's time. People ships later. If Jobs is the only tab, we show it on its own, with no tab row.
+| 11 | **Content tab** | Community → Content: articles and the newsletter as a list of links out to Medium. Organizers add them in Studio | Archive, "All issues", "Submit a draft" |
+| 12 | **Post-event ratings** | After an RSVP'd and checked-in event, members rate the meetup and give each session a quick rating, with an optional comment for organizers only. Speakers see their aggregated feedback in Your talks. Home shows "After the meetup" | Recordings, recap card, sponsor poll results, anonymous comment screening tools (organizers use Studio) |
+
+**Community tab in the MVP:** Content and Jobs, with a two-tab row. People ships later.
 
 **Accessibility is part of the MVP, not extra work.** Everything the a11y notes mark "Must implement" for the screens above is part of each feature's acceptance criteria, including 200% text and 48dp/44pt touch targets.
 
-## Later (planned, not in January)
-Roughly in the order I'd pick them up after testing, subject to what testers tell us:
-1. **Post-event loop:** rate the meetup and speaker feedback. Testing runs through real meetups, so this is the first thing we'd want.
-2. **People directory and full privacy controls** (they ship together, because the directory needs the privacy controls)
-3. Notifications screen and notification settings
-4. Event-day Home mode, offline ticket and check-in, Wallet passes
-5. Sponsor impact report (by then the MVP has collected the data it needs), sponsor polls and live polls
-6. Quick connect and consented booth leads
-7. Public profile, share card and Open to work, roles matching your topics, company pages
-8. Mentorship
-9. Shareable meetup posters
-10. Multi-city chapters
-11. Kiswahili
-12. Onboarding A/B test (once installs are high enough), guest mode
-13. Achievements, celebrations, sponsored challenges, motion polish
-14. The web platform (public and organizer), once its shape is decided
+## After January
+Three buckets (agreed 2026-10-02):
+- **Next:** planned for Feb–Apr 2027, after testing. What testers tell us can reorder it.
+- **Later:** planned, but no date yet.
+- **Not planned:** designed and kept in Figma, but parked until we have evidence or demand. We'll bring them back with a reason.
+
+### Next (Feb–Apr 2027)
+1. **Organizer web platform v1:** create and edit events, review talks, manage sponsors and jobs. It replaces Studio. (Its shape is still to be decided; see `docs/decisions.md`.)
+2. **Public web event pages:** shareable links and link previews for events.
+3. **People directory, with the full privacy controls** (they ship together).
+4. **Event day:** event-day Home mode (Wi-Fi, now and next), offline ticket and check-in, walk-ins, waitlist.
+5. **Notifications screen and notification settings.**
+6. **Sponsor impact report** (built from MVP data), sponsor polls and live polls.
+7. **Native iOS chrome** (if the January build ships shared UI on iOS).
+
+### Later (planned, no date)
+- Quick connect and consented booth leads
+- Public profile, share card, Open to work
+- Roles matching your topics, company pages, job poster stats
+- Multi-city chapters and the chapter switcher
+- Apple and Google Wallet passes
+- Onboarding A/B test and guest mode (once installs are high enough)
+- Recordings and the post-event recap
+- Achievements, celebrations, motion polish
+
+### Not planned (parked until there's evidence)
+| Feature | Why it's parked | What would bring it back |
+|---|---|---|
+| Mentorship flow | Needs active mentors and moderation, and mentoring is already informal | Testers or organizers asking for it, and enough mentors volunteering |
+| Kiswahili | The copy guide and layout test are done, but it doubles the copy work in every phase | Testers asking for it, or a chapter where it's the main language |
+| Shareable meetup posters | Nice for visibility, but posters can be made outside the app for now | Sponsors asking for it, or organizers spending a lot of time on posters |
+| Sponsored challenges and badges | Needs judging and prize logistics | A sponsor ready to run one |
+| `SponsorMarquee` (auto-scrolling sponsor row) | Only needed once there are many sponsors | More than about 6 sponsors on one event |
+| Job alerts | Needs notification settings and matching | Job seekers asking for it, once roles matching topics ships |
 
 ## What could break the plan
 - **Native iOS chrome.** The designs use native iOS 26 chrome (`TabView`, native navigation bars, sheets) with shared content. Building that properly roughly doubles the shell work. **Proposal:** in January, ship shared Compose UI on iOS too, adding native pieces only where a platform requires them (Sign in with Apple, share sheet, calendar, camera permission). Native chrome comes after. Engineering and design need to agree to this.
