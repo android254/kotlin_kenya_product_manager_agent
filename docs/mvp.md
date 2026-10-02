@@ -1,6 +1,6 @@
 # MVP for January testing
 
-Last updated 2026-10-02. Status: **draft for organizer review**. The product owner confirmed the borderline items on 2026-10-02: check-in scanner, push reminders, Content tab and post-event ratings are all in.
+Last updated 2026-10-02. Status: **draft for organizer review**. The product owner confirmed the borderline items on 2026-10-02: check-in scanner, push reminders and post-event ratings are in. The Content tab was briefly added, then removed the same day as non-crucial (it's in Later).
 
 ## The bet
 By January, a Nairobi chapter member can sign in, find the next meetup, RSVP, get in at the door, and submit a talk. Sponsors are visible on the events they back and can list jobs. Everything else in the designs waits for a later phase. It isn't dropped.
@@ -37,10 +37,9 @@ Sizes are rough (S = under a day, M = 1–3 days, L = 3–5 days). The task-scop
 | 9 | **Sponsors** | `SponsorRow` on Event detail, an "Our sponsors" list and a simple Sponsor detail (logo, about, link, open roles). Events record views, RSVPs and check-ins for the future report | Impact report, booth leads, challenges and badges, sponsor polls, `SponsorMarquee`, automatic logo plates |
 | 10 | **Push reminders** | A reminder the day before an RSVP'd event. A notice when a talk's status changes | The Notifications screen and its list, notification settings |
 
-| 11 | **Content tab** | Community → Content: articles and the newsletter as a list of links out to Medium. Organizers add them in Studio | Archive, "All issues", "Submit a draft" |
-| 12 | **Post-event ratings** | After an RSVP'd and checked-in event, members rate the meetup and give each session a quick rating, with an optional comment for organizers only. Speakers see their aggregated feedback in Your talks. Home shows "After the meetup" | Recordings, recap card, sponsor poll results, anonymous comment screening tools (organizers use Studio) |
+| 11 | **Post-event ratings** | After an RSVP'd and checked-in event, members rate the meetup and give each session a quick rating, with an optional comment for organizers only. Speakers see their aggregated feedback in Your talks. Home shows "After the meetup" | Recordings, recap card, sponsor poll results, anonymous comment screening tools (organizers use Studio) |
 
-**Community tab in the MVP:** Content and Jobs, with a two-tab row. People ships later.
+**Community tab in the MVP:** Jobs only, shown without a tab row. Content and People come later.
 
 **Accessibility is part of the MVP, not extra work.** Everything the a11y notes mark "Must implement" for the screens above is part of each feature's acceptance criteria, including 200% text and 48dp/44pt touch targets.
 
@@ -60,6 +59,7 @@ Three buckets (agreed 2026-10-02):
 7. **Native iOS chrome** (if the January build ships shared UI on iOS).
 
 ### Later (planned, no date)
+- Content tab (articles and newsletter as links out). It's cheap, but not crucial for testing
 - Quick connect and consented booth leads
 - Public profile, share card, Open to work
 - Roles matching your topics, company pages, job poster stats
