@@ -1,3 +1,8 @@
 {
-  "agent": "product-manager"
+  "agent": "product-manager",
+  "permissions": {
+    "allow": [
+      "mcp__Linear"
+    ]
+  }
 }
