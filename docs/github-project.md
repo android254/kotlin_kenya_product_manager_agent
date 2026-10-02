@@ -1,5 +1,7 @@
 # GitHub Project: Kotlin Kenya App
 
+> **On hold until the open-source release.** Until then we plan in Linear (see `docs/decisions.md`, 2026-10-02). Use this doc and the setup script when the app goes open source.
+
 One project board at the android254 org level holds the backlog for every Kotlin Kenya App repo. Each repo keeps its own issues; the board pulls them together.
 
 - **Board:** `https://github.com/orgs/android254/projects/<number>` (add the number once it's created)

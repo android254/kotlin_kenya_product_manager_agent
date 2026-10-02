@@ -13,7 +13,7 @@ Claude Code setup for product management on the **Kotlin Kenya / Android254 app*
 28 PM framework skills from [deanpeters/Product-Manager-Skills](https://github.com/deanpeters/Product-Manager-Skills) (CC BY-NC-SA 4.0), covering problem framing, discovery, prioritization, roadmaps, user stories, and stakeholders. The product manager uses them as needed. The task-scoper preloads the user-story skills. See `.claude/skills/README.md` for the list and license terms.
 
 ## Backlog
-One org-level GitHub Project covers every Kotlin Kenya App repo. See `docs/github-project.md` for setup and for adding a repo, and run `scripts/setup-github-project.sh` once to create it.
+We plan in Linear while the app is built privately. At the open-source release the backlog moves to an org-level GitHub Project (`docs/github-project.md`, `scripts/setup-github-project.sh`). See `docs/decisions.md`.
 
 ## Usage
 Run `claude` in this folder; the product manager is the default agent. For example: "Scope a speaker-reminder feature for Call for Speakers, then explain it for the community."
