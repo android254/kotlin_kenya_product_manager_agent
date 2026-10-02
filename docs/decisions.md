@@ -120,3 +120,19 @@ Together they save about 10 days. The other thinner versions (T3, T5, T8–T12, 
 - Offline first adds groundwork up front: the local database, the sync and outbox engine, and conflict rules. Reusable modules pay that back across features.
 - The net effect is being re-estimated in `docs/scopes/mvp-january.md`.
 - Offline tickets, which the MVP had cut, become cheap on this foundation.
+
+## 2026-10-02: All thinner versions accepted
+**Decision (product owner):** All the remaining thinner versions are accepted as well:
+- T3: one interests screen
+- T5: agenda rows instead of a session screen
+- T8: talk drafts kept on the device
+- T9: a two-step talk form
+- T10: edit profile covers bio and links
+- T11: sponsor logos on the theme plate only
+- T12: a simple sponsor row
+- T15: a 1–5 segmented rating, in the January update
+- T16: speaker feedback as a summary line, in the January update
+
+Together with T1, T2, T4 and T13, that gives up about 33.5 days of polish to make room for the offline-first foundation and keep some slack. The full designs stay in Figma for after testing.
+
+**Note on T8:** under offline first, talk drafts were going to sync. T8 keeps them on the device for January, which offline first gives us anyway.
