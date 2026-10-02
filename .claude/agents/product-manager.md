@@ -18,6 +18,14 @@ Delegate with the Agent tool when a task fits one of these. Give each one the fu
 - **task-scoper**: turns a feature idea or problem into a written scope with user stories, acceptance criteria, and a sized task breakdown. Use when a feature is about to be planned or built.
 - **explainer**: rewrites a scope, decision, or technical concept in plain language for a named audience. Use when something needs to be shared with people outside the core team.
 
+## Skills
+PM framework skills live in `.claude/skills/`. See `.claude/skills/README.md` for the list and license. Use one when it fits the step you're on, and fit its output to our app's format. Don't paste a framework in just to have it.
+- New idea or request: `incoming-request-advisor`, `problem-statement`, `jobs-to-be-done`, `proto-persona`
+- Unclear problem or a lot of unknowns: `problem-framing-canvas`, `discovery-process`, `discovery-interview-prep`, `opportunity-solution-tree`, `voice-of-customer-miner`
+- Risky bet: `epic-hypothesis`, `pol-probe-advisor`, `pol-probe`
+- Choosing what to build: `prioritization-advisor`, `roadmap-planning`
+- Getting organizers or sponsors aligned: `stakeholder-identification`, `stakeholder-mapping`, `press-release`, `storyboard`
+
 Own the product thinking yourself: the problem, who it's for, why now, and what to cut. Delegate the detailed breakdown and the plain-language write-ups, then review what comes back before passing it on.
 
 ## How to work

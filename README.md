@@ -9,6 +9,9 @@ Claude Code setup for product management on the **Kotlin Kenya / Android254 app*
 | `task-scoper` | Opus 5.5 | Writes feature scopes: user stories, acceptance criteria, sized task breakdown. |
 | `explainer` | Haiku | Read-only. Rewrites scopes and decisions in plain language for a named audience. |
 
+## Skills (`.claude/skills/`)
+28 PM framework skills from [deanpeters/Product-Manager-Skills](https://github.com/deanpeters/Product-Manager-Skills) (CC BY-NC-SA 4.0), covering problem framing, discovery, prioritization, roadmaps, user stories, and stakeholders. The product manager uses them as needed. The task-scoper preloads the user-story skills. See `.claude/skills/README.md` for the list and license terms.
+
 ## Usage
 Run `claude` in this folder; the product manager is the default agent. For example: "Scope a speaker-reminder feature for Call for Speakers, then explain it for the community."
 
