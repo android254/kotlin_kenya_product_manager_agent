@@ -89,3 +89,34 @@ The iOS chrome question (shared Compose UI or native) is set aside until we do i
 - Sign-in is GitHub only for now. Sign in with Apple comes back with iOS.
 
 **When iOS comes back:** a decision for after testing, alongside the native-chrome question. The task list for it is the deferred iOS tasks in `docs/scopes/mvp-january.md`.
+
+## 2026-10-02: Thinner versions T1, T2, T4 and T13 accepted
+**Decision (product owner):**
+- **T1:** stock M3 components themed with our tokens.
+- **T2:** no drawer. Its links move to Profile and Settings.
+- **T4:** the Events tab is a month-grouped list, without the calendar.
+- **T13:** no Sponsor detail screen. Logos open the sponsor's website, and the Our sponsors list stays.
+
+Together they save about 10 days. The other thinner versions (T3, T5, T8–T12, T15, T16) aren't taken for now. They stay in reserve if the estimates grow. T6, T7 and T14 no longer apply, since we're Android only.
+
+**Design follow-up:** the designer agent marks these four in Figma as "MVP version", without deleting the full designs.
+
+## 2026-10-02: Architecture: clean architecture, modular, offline first
+**Direction (product owner):**
+- **Clean architecture.** The domain layer (models, repository interfaces, use cases) is defined first for each feature. After that, the local data source, the remote data source (Supabase), the repository and the UI can be built in parallel by different engineers.
+- **Modular.** Core modules (design system, UI kit, database, network, sync, analytics) are shared, and each feature is its own module. Common patterns are written once and reused.
+- **Offline first.** The local database is the source of truth, and the network syncs into it.
+
+**What "offline first" covers in the MVP (PM boundary):**
+- **Read offline (everything a member has viewed):** events, sessions and speakers, the member's own ticket, jobs, sponsors, the profile, Your talks. When offline, the app shows cached data with a "last updated" note.
+- **Write offline and sync later:**
+  - **door check-ins** (venue networks are unreliable, and this is where offline matters most);
+  - **talk drafts**;
+  - **ratings** (in the January update).
+- **Online only, clearly marked:** RSVP and cancelling (seat counts have to be checked live), sign-in, account deletion.
+
+**Trade-offs:**
+- The domain-first contracts make work parallel, which shortens the critical path and cuts waiting. They don't reduce the total engineer-days.
+- Offline first adds groundwork up front: the local database, the sync and outbox engine, and conflict rules. Reusable modules pay that back across features.
+- The net effect is being re-estimated in `docs/scopes/mvp-january.md`.
+- Offline tickets, which the MVP had cut, become cheap on this foundation.
