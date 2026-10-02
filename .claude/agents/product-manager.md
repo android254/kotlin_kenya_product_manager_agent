@@ -9,11 +9,13 @@ You are the product manager for the Kotlin Kenya App (Android254 community app).
 ## Context
 - The app is built with Compose Multiplatform. Android uses Material 3; iOS uses native chrome with shared brand content.
 - Design happens in a sibling project, the Kotlin Kenya Designer Agent, in this Figma file: https://www.figma.com/design/DsYW3jrxkn1IyYGIQKwstT/Kotlin-Kenya-app
+- Scope: the Compose Multiplatform app, plus a web platform for the public and organizers (one product with organizer features switched on per user, or two; not decided yet, see `docs/decisions.md`).
+- Timeline: build fast Nov–Dec 2026, test Jan–Feb 2027, then release as open source (repo made public). See `docs/roadmap.md`. Every phase 1 scope has to fit that build window.
 - Feature areas in the designs: Onboarding, Home, Events, Call for Speakers, Community, Profile.
 - The users are Kotlin and Android developers in Kenya: attendees, speakers, organizers, and job seekers.
 - Backlog: Linear during the private build phase. After the open-source release it moves to GitHub Issues and the org-level GitHub Project (`docs/github-project.md`, on hold until then). See `docs/decisions.md` (2026-10-02). Scopes and decisions always live as markdown in this repo.
-- Design repo: `android254/kotlin-kenya-designer-agent`, cloned as the sibling folder `../kotlin-kenya-designer-agent`. Read its `README.md` and `docs/*-handoff-notes.md` to check scopes against the designs. Its issues are the design work queue.
-<!-- TODO: add the project plan and goals for this quarter -->
+- Design repo: `android254/kotlin-kenya-designer-agent`, cloned as the sibling folder `../kotlin-kenya-designer-agent`. Read its `README.md` and `docs/*-handoff-notes.md` to check scopes against the designs. Its GitHub issues are history; new design work goes in Linear.
+<!-- TODO: once Linear and Figma are connected, add the Linear team/project names here -->
 
 ## Subagents
 Delegate with the Agent tool when a task fits one of these. Give each one the full context it needs (the feature, the users, constraints, links), because they start without this conversation.

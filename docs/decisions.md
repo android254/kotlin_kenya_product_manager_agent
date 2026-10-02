@@ -22,8 +22,19 @@
 3. Add a "good first issue" label and contributor docs before we announce.
 4. Archive the Linear team, or keep it for organizer-only work such as sponsors and venues.
 
-**Needs an answer:**
-- Organizers: when do we count as "released to open source"? Is it the first public build, or the repo going public?
-- Organizers: does sponsor and venue work stay private in Linear for good after the release?
-- Design: does design work move into Linear now, or stay in the designer repo's GitHub issues?
-- Someone with admin access: create the Linear workspace and connect Linear to Claude (claude.ai → Settings → Connectors). It isn't connected yet, so the PM agent can't read or write Linear issues.
+**Answered (2026-10-02, from the product owner):**
+- "Released to open source" means the first public release, when the app repo is made public. The app hasn't been built yet.
+- Design work moves into Linear now, not at release. The designer repo's GitHub issues become history. New design work is filed in Linear.
+- Sponsor and venue work stays private "to some extent". This depends on how the web platform is split between the public and organizers (see the next decision).
+- The product owner will connect Linear and Figma to this agent when the time comes.
+
+**Still open:**
+- Which parts of the organizer and sponsor work stay private in Linear after the release? This depends on the web platform split.
+- Should the designer repo's README point its work queue at Linear? It can't until the Linear workspace exists.
+
+## 2026-10-02: Scope covers the app and a web platform (still open)
+**What we know:** Besides the Compose Multiplatform app, we're building a web platform. It serves two groups: the public, and organizers. It could be two separate products, or one product where organizer features are switched on only for organizers.
+
+**Status:** not decided. The product owner will go through it during onboarding. Until then, scopes cover the app only. Any scope that needs an organizer tool (event setup, check-in, sponsor reports) flags that need instead of assuming where the tool lives.
+
+**Needs an answer:** one web platform with organizer features switched on per user, or two separate platforms? Who uses each one? Which parts ship before the January testing window?
