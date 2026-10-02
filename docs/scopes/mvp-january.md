@@ -9,6 +9,15 @@ Each feature gets its own detailed scope later. This file is the plan and the si
 
 ---
 
+> **Update 2026-10-02 (PM): Android only for January.** The product owner deferred iOS (`docs/decisions.md`). The tables below are unchanged for the record. Here is how the decision changes them.
+> - **Deferred to the iOS phase:** F1-16, F1-18, F2-05, F4-10, F5-05, F5-08, F10-04, F0-07, the TestFlight half of F0-09, the Apple provider in F2-02, the iOS half of F1-12, and the iOS states in design tasks.
+> - **F0-14** becomes an Android accessibility pass for the F6–F11 screens (about 1.5 days instead of 2).
+> - **New:** a CI job that keeps the shared modules compiling for the iOS targets (S, 0.5).
+> - **Thinner versions T6, T7 and T14 are no longer needed** (they were iOS-only savings).
+> - **New count for the first build:** 142 − 17.5 (F10 push and F11 ratings move to the mid-January update) − 11 (iOS) + 0.5 (Android a11y pass 2) + 0.5 (iOS compile check) ≈ **114.5 days against about 106**, so about 8.5 over, before any thinner versions.
+> - **The mid-January update** (F10 + F11, Android only) ≈ **15.5 days**.
+> - **The remaining thinner versions** (T1–T5, T8–T13, T15, T16) save about 23.5 days, about 20.5 of them in the first build. Taking roughly 9–12 days of them closes the gap with a little slack.
+
 ## Problem
 Nairobi chapter members have no single place to find the next meetup, RSVP, get in at the door, submit a talk and say how the meetup went. Organizers run RSVPs, check-in, talks, sponsors, jobs and feedback by hand. We want one app, on Android and iOS, in testers' hands in the first week of January 2027, so that real Jan–Feb meetups run through it.
 

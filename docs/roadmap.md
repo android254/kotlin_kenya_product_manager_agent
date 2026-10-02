@@ -5,7 +5,7 @@ Last updated 2026-10-02. Dates are targets, not promises.
 | When | Phase | Goal | Where we plan |
 |---|---|---|---|
 | Oct 2026 | Onboarding and scoping | PM and design agents set up. Linear and Figma connected. Phase 1 scopes written and sized | Linear |
-| Nov–Dec 2026 | Build, moving fast | App built for testing. No public contributions yet | Linear |
+| Nov–Dec 2026 | Build, moving fast | **Android** app built for testing (KMP, iOS later). No public contributions yet | Linear |
 | Jan–Feb 2027 | Testing | The app in testers' hands. Fix what blocks a public release | Linear |
 | After testing | Open-source release | Repo made public. Backlog moves to GitHub Issues (`docs/github-project.md`). Public contributions open | GitHub |
 

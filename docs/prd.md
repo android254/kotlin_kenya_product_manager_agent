@@ -74,7 +74,7 @@ Before investing past the MVP, we should gather:
 ### Three surfaces
 | Surface | For | What it does |
 |---|---|---|
-| **Mobile app** (Android and iOS, KMP and Compose Multiplatform) | Members, speakers, organizers at the venue | Everything a member does day to day: discover, RSVP, ticket, event day, talks, jobs, people, profile. The organizer's check-in tool |
+| **Mobile app** (Android first, then iOS, from one KMP and Compose Multiplatform code base) | Members, speakers, organizers at the venue | Everything a member does day to day: discover, RSVP, ticket, event day, talks, jobs, people, profile. The organizer's check-in tool |
 | **Public web** | Anyone, plus search engines and link previews | Event pages, public profiles and share cards, job listings, sponsor pages, the call for speakers |
 | **Organizer platform** | Organizers, and later sponsors | Create and run events, review talks, manage sponsors and jobs, approve sponsor polls, send impact reports, manage chapters |
 
@@ -164,7 +164,7 @@ Each pillar becomes epics. Each epic gets its own scope in `docs/scopes/` when w
 | **iOS quality** with shared UI | A native-chrome phase after January. iOS-specific QA in every phase |
 | **Members depend on GitHub sign-in** | 🔵 Add email or Google sign-in if testers without GitHub get stuck |
 | **Sponsors expect more than we can deliver** | Promise visibility and talent first. Offer the impact report only once the data exists |
-| **App store policies** (account deletion, Sign in with Apple, closed testing rules) | Built into the MVP |
+| **App store policies** (account deletion, closed testing rules; Sign in with Apple once iOS ships) | Built into the MVP |
 
 **Dependencies:**
 - the design system and screens in Figma (designer agent);
