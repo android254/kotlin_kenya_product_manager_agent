@@ -37,6 +37,37 @@ For the product owner going into the team meeting. Two parts: what's already dec
 - The Android MVP plan (`docs/mvp.md`) was already running **~8.5 engineer-days over its ~100-day budget** before any of this existed. Adding W1 alone — even though it's the cheap sub-phase — pushes that to **~16 days over**, because the privacy policy and deletion page have to be live by ~Nov 27 for Play closed testing, which lands most of W1's engineering in the **two busiest Android sprints (S1–S2)**.
 - The reserve "thinner version" cuts already identified for Android (~14.5 days available) can close most of that gap — but that's a trade the team needs to make on purpose, in this meeting, not something that happens by default.
 
+### Screens: what we've divided to build now vs. deferred to Feb 2027
+Full detail in `docs/mvp.md`. This is the app side only — the web platform screens (Part 1, W1/W2 above) are separate and run on their own build timeline.
+
+**Building now — ships for January testers:**
+| Area | Screens |
+|---|---|
+| Sign in & onboarding | Welcome, Continue with GitHub, three interest steps |
+| Home | Home (greeting, next meetup card, shortcuts, CFP promo), loading/empty/error states |
+| Events | Events list (week/month calendar), Event detail, Session detail, RSVP/cancel |
+| Ticket & check-in | QR ticket, organizer scanner (checked in / already checked in / not on list) |
+| Submit a talk | 3-step form with draft saving, status on Profile |
+| Profile & settings | Own profile, My RSVPs, My talks, Settings (theme, sign out, delete account) |
+| Jobs | Job list, Job detail |
+| Sponsors | Sponsor row on Event detail, Our sponsors list, Sponsor detail |
+| *Mid-January tester update* | Push reminder notices; post-event rating flow + "After the meetup" on Home |
+
+Organizers get none of this on the app beyond the door scanner — they run events, talks, sponsors and jobs in Supabase Studio via a runbook, not a screen.
+
+**Deferred to Feb 2027 (the "Next" bucket, after January testing, reorderable by what testers tell us):**
+| Area | Screens |
+|---|---|
+| Organizer web platform v1 | Replaces Studio — create/edit events, review talks, manage sponsors and jobs |
+| Public web | Shareable event pages with link previews |
+| People | People directory, with the full privacy controls |
+| Event day | Event-day Home mode (Wi-Fi, now/next), offline ticket & check-in, walk-ins, waitlist |
+| Notifications | Notifications screen and notification settings |
+| Sponsors | Sponsor impact report, sponsor polls, live polls |
+| iOS | The same screens above, native on iOS, plus Sign in with Apple and TestFlight |
+
+Two more buckets sit behind Feb 2027 with no date yet (Content tab, Quick connect, public profile/share card, roles matching, multi-city chapters, wallet passes, A/B test/guest mode, recordings/recap, achievements) and a "not planned" list parked until there's real demand (mentorship, Kiswahili, posters, sponsored challenges, auto-scrolling sponsor marquee, job alerts) — full reasoning in `docs/mvp.md`.
+
 ---
 
 ## Part 2 — Decisions needed
