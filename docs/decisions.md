@@ -32,12 +32,42 @@
 - Which parts of the organizer and sponsor work stay private in Linear after the release? This depends on the web platform split.
 - Should the designer repo's README point its work queue at Linear? It can't until the Linear workspace exists.
 
-## 2026-10-02: Scope covers the app and a web platform (still open)
+## 2026-10-02: Scope covers the app and a web platform (resolved 2026-10-04, see below)
 **What we know:** Besides the Compose Multiplatform app, we're building a web platform. It serves two groups: the public, and organizers. It could be two separate products, or one product where organizer features are switched on only for organizers.
 
-**Status:** not decided. The product owner will go through it during onboarding. Until then, scopes cover the app only. Any scope that needs an organizer tool (event setup, check-in, sponsor reports) flags that need instead of assuming where the tool lives.
+**Status:** resolved — see "2026-10-04: Web platform shape decided" below. This entry stays for history.
 
-**Needs an answer:** one web platform with organizer features switched on per user, or two separate platforms? Who uses each one? Which parts ship before the January testing window?
+## 2026-10-04: Web platform shape decided, built Nov–Dec by the same team, split into two sub-phases
+**Decision (product owner):** one web product, not two. Default role is `member`; a small set of accounts get `organizer`, which unlocks extra routes (reviewing Call for Speakers / Call for Sponsors / Call for Donations submissions, a financial status ledger, granting the organizer role). Same Supabase Auth and design system as the app. Full detail in `docs/web-platform-brief.md`.
+
+**App vs. web split (the product owner's framing, adopted as the working rule):** the app is the daily driver — anything offline, anything with state you come back to (tickets, drafts, check-in) stays there. The web platform is for walk-ins — people without the app doing a one-shot action (submit a form, read a page). Call for Speakers, Call for Sponsors and Call for Donations are the first three web surfaces because they're exactly that: one-shot public submissions. The door check-in scanner stays in the app — "organizer controls purely on web" was the product owner's first instinct, walked back the same day as "a bit optimistic"; it's a default for *new* organizer tooling, not a rule that moves already-decided features.
+
+**Also decided 2026-10-04, captured in `docs/web-platform-brief.md`:**
+- Call for Sponsors ("expects something in return": a speaking slot, booth, logo placement — a repeatable list, not a fixed dropdown) and Call for Donations ("no strings attached") are two distinct forms. Money for both likely flows through an existing **Open Collective account**; whether that needs one shared field or two separate ones is still a team decision (see "Still open").
+- Organizer financials are a **status ledger** (e.g. "pledged → invoiced → paid"), manually updated — not a read-only view, and explicitly not full accounting/reconciliation.
+- Web sign-in adds **Google** alongside GitHub (sponsor/donor contacts in finance or marketing mostly won't have GitHub). Apple sign-in stays iOS-app-only.
+- The Call for X forms require sign-in to submit — no anonymous submissions.
+- The web Call for Speakers writes to the same `talk_submissions` table the app uses — one CFP, two entry points, not two pots.
+- Granting the `organizer` role happens only on the web (manually in Supabase for the MVP, or a small admin screen later) — never in the app.
+- Sponsor tiers are a **hybrid model**: some tiers at a fixed money threshold, plus custom tiers for in-kind contributions (e.g. a venue host) that an organizer defines case by case. Exact thresholds and custom-tier names are still open.
+- The web platform also hosts: Terms of Service (net new, needs legal review), the Privacy Policy and the account-deletion request page (both already planned as `docs/mvp.md` tasks F0-04/F0-05 — this is their home instead of a one-off static page), an About Us page, and a sponsor "what's in it for you" pitch.
+- **Public pages ship first and separately.** The product owner confirmed this "100%": ToS, Privacy Policy, About Us, the sponsor pitch and the tier list can go live before any Call for X form exists. This is now **sub-phase W1**; the forms, auth, ledger and role-gating are **sub-phase W2**.
+
+**Resourcing — decided, with a named risk:** built in **Nov–Dec 2026, by the same 4 engineers building Android**, not deferred to the Feb–Apr "Next" bucket `docs/mvp.md` assumed ("don't worry about us, we have enough coffee to spare"). `docs/mvp.md` and `docs/scopes/mvp-january.md` are **not changed** by this entry — the Android feature list and the ~100 engineer-day budget stand as written, which was already running ~8.5 days over before this additional scope. The accepted risk is that something gives: the Android list shrinks further, the January date slips, or the team sustains a harder pace than planned. Splitting into W1 (cheap, content-only) and W2 (the real engineering cost) is the mitigation on record — see `docs/web-platform-brief.md` §6.
+
+**Update 2026-10-04 — W1 scoped, and the mitigation above only half holds.** `task-scoper` sized W1 at `docs/scopes/web-platform-w1-public-pages.md`: about 7.5 engineering days, 3 design days, 8 content/ops days (5.5 of them new), plus an **unsized legal review with no owner**. W1 is cheap, as expected. **It is not well-timed:** the privacy policy and deletion page must be live by about Nov 27 so Play closed testing (F0-08) can start and clear its 14-day window before January, which pulls about 6 of the 7.5 engineering days into S1–S2 — the two busiest Android sprints — and puts the unowned legal review on the Android critical path (it needs to finish by about Nov 20). "Cheap and separable" turns out to mean the Android plan is now about **16 engineer-days over**, not 8.5, with the gap concentrated at the start of the build rather than spread out. The reserve thinner versions (≈14.5 days) can close most of it, but that's now a real trade, not a cushion.
+
+**Update 2026-10-04 (same day, later) — two of those resolved:**
+- **Sponsors can ask for a speaking slot.** "They can have a speaking slot" — precedent: Huawei sponsored last year and provided a speaker. This resolves the conflict in the sponsor's favor, but **only half of it**: it reopens `sponsors-handoff-notes.md` decision #26 ("sponsors back whole events, never sessions," "sessions are curated through the open CFP only," the `SessionCard` "Sponsored" label removed) without saying which part of #26 still holds. **Not yet decided:** does the slot bypass CFP curation entirely, or does the sponsor's nominee still go through the normal review (sponsorship buys consideration, not the seat)? That decides whether decision #26 needs an actual follow-up and whether the deprecated "Sponsored" session label comes back. Pitch copy and the W2 form are written provisionally until this lands — see `docs/web-platform-brief.md` §9 question 4 and the scope's OQ-W7.
+- **Web stack: React**, confirmed by the product owner. Not yet decided: which React framework/meta-framework — the acceptance criteria already written for W1 (full content with JS off, no client-side fetch, link-preview meta tags) require one that pre-renders (static export or SSR — e.g. Next.js, Remix, Astro, Gatsby); a plain client-rendered SPA would fail them. Hosting is also still open. Flagged in the scope's W1-01/OQ-W4.
+- **Still unassigned:** which engineer owns W1, and which reserve thinner version(s) pay for its ~7.5 days (OQ-W10) — the product owner confirmed this is undecided as of this conversation.
+
+**Still open (carried over, unchanged):**
+- Whether Call for Sponsors and Call for Donations need one Open Collective field or two — pending a team meeting the product owner has already called. **This blocks W2**, not W1.
+- The actual sponsor tier thresholds and custom-tier names.
+- Legal review route/owner for the ToS and Privacy Policy, and the W1 engineer/thinner-version assignment (OQ-W10).
+
+Full open-questions list and reasoning: `docs/web-platform-brief.md` and `docs/scopes/web-platform-w1-public-pages.md`.
 
 ## 2026-10-02: Stack for the MVP
 **Decision:** The app is Kotlin Multiplatform with Compose Multiplatform, for Android and iOS. The backend is Supabase (Postgres, Auth, Storage, Edge Functions) for the MVP.
