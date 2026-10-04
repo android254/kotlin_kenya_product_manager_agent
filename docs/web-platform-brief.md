@@ -49,6 +49,12 @@ Proposed shape (for the task-scoper to turn into real fields once confirmed):
 - **What you'd like in return** — repeatable text field, e.g. "Speaking slot", "Booth at the venue", "Logo on event page" — add as many as apply
 - Status (new → in review → approved → declined), visible only to organizers
 
+**Decided 2026-10-04: a speaking slot is a real thing sponsors can ask for.** "They can have a speaking slot" — precedent cited: Huawei sponsored last year and provided a speaker. This resolves the conflict `task-scoper` flagged (`docs/scopes/web-platform-w1-public-pages.md` OQ-W7) in the sponsor's favor, but it **reopens a standing design decision, not just a form field**: `sponsors-handoff-notes.md` (issue #26, 2026-10-02) explicitly says "sponsors back whole events, never individual sessions," removed the `SessionCard` "Sponsored" label, and states "sessions are curated through the open CFP only." Those two things can't both be fully true, and I don't think it's mine to resolve which gives way — it needs a decision, not just a form field:
+- **Is it a guaranteed slot** (the sponsor's nominee speaks, full stop, independent of CFP review) — which means decision #26's "curated through the open CFP only" no longer holds, and the "Sponsored" session label `sponsors-handoff-notes.md` deprecated may need to come back so attendees aren't misled about how that talk got on the agenda?
+- **Or does the sponsor's nominee still go through the normal CFP** like any other speaker, with sponsorship only buying the *opportunity to be considered*, not the slot itself — in which case decision #26 still holds and nothing in the designs needs to change, just the pitch copy ("we'll make sure your nominee gets a look")?
+
+The Huawei precedent doesn't settle which of these it was. 🔵 **Open question, flagged to design:** which one is it, and if it's the first, the designer-agent repo's decision #26 needs a follow-up (likely a new Linear item once that workspace exists, per `docs/decisions.md` 2026-10-02 planning-tools decision).
+
 ### Call for Donations — *no strings attached*
 "Offerings to the church," as you put it. No expectation fields, because there's no expectation. Proposed shape:
 - Name (sign-in required to submit — see §5, so this is never truly anonymous on our side)
@@ -113,10 +119,9 @@ Resolved this round: the scanner stays in the app (§8), resourcing is the same 
 | 1 | **Blocking a team meeting you've already called:** one Open Collective field/collective for both Call for Sponsors and Call for Donations, or two separate ones? This gates W2 (§6) — the forms can't be finalized until it's settled. | Product owner + team |
 | 2 | The actual **money thresholds** for each fixed sponsor tier, and what custom/in-kind tiers are called and what they get (venue host, and anything beyond venue) | Product owner + organizers |
 | 3 | **Legal support for the Terms of Service and Privacy Policy — genuinely unresolved, by your own account** ("we may need to get legal support or build an agent from scratch, I don't know"). This blocks *publishing* the ToS/Privacy pages, not drafting them — a draft can exist and wait for review. Worth deciding before W1 ships, since those two pages specifically can't go live unreviewed the way About Us or the sponsor pitch can. | Product owner + organizers |
+| 4 | **Design, not product:** does a sponsor's speaking slot (confirmed above) bypass CFP curation, or does the nominee still go through the normal review? The answer decides whether `sponsors-handoff-notes.md` decision #26 (no sponsored-session labels, sessions curated through the open CFP only) needs a follow-up | Product owner + design |
 
-## Before this becomes a scope
-Two sub-phases, two different states of readiness:
-- **W1 (public pages)** is close to ready for `task-scoper` now. The only blocker is question 3 — decide whether legal review is in-house, hired, or AI-assisted before publishing, so the scope can plan for a review step rather than assume the first draft ships.
-- **W2 (Call for X forms, auth, ledger, role gating)** is blocked on question 1, the Open Collective meeting, since it decides whether sponsors and donations are one submission flow or two and where each points.
+## W1 is scoped; W2 is next
+**W1 (public pages)** has a sized scope: `docs/scopes/web-platform-w1-public-pages.md` (~7.5 engineering days, 3 design, 8 content/ops, plus an unsized/unowned legal review). The headline finding: it's cheap but badly timed — the privacy policy and deletion page have to be live by ~Nov 27 for Play closed testing, which pulls most of the engineering into the two busiest Android sprints and pushes the Android plan to ~16 days over budget rather than ~8.5. See `docs/decisions.md` (2026-10-04 addendum) for the full read.
 
-Once question 1 is settled, I'd size W1 and W2 as separate scopes (so the day-count against the Android plan is visible, per §6) rather than one combined document.
+**W2 (Call for X forms, auth, ledger, role gating)** isn't scoped yet. It's still blocked on question 1, the Open Collective meeting, since that decides whether sponsors and donations are one submission flow or two and where each points.

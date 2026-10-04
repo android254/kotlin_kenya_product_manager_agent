@@ -140,12 +140,13 @@ Proposed targets for the end of testing (28 Feb 2027). The product owner confirm
 - **Honest claims:**
   - **Given** any claim on the page
   - **When** the product owner checks it against the January build
-  - **Then** it describes something that ships. Planned items are omitted or marked as planned without dates, depending on OQ-W7.
+  - **Then** it describes something that ships.
   - For January, that means:
     - Visibility: attribution on the events they back, and the "Our sponsors" list
-    - Talent: featured roles on the job board
+    - Talent: featured roles on the job board, **and now (resolved 2026-10-04, see OQ-W7) a speaking slot** — "they can have a speaking slot," with the Huawei sponsorship cited as precedent
     - Insights: "we record aggregate event numbers from day one; a sponsor report is planned"
   - Engagement has nothing in the January build (no polls, challenges or offers). The page must not imply it does.
+  - **The speaking-slot claim is provisional, not final copy:** OQ-W7 resolved that sponsors *can* ask for a slot, but not *how* — guaranteed regardless of CFP review, or the nominee going through the normal review like any other speaker. Write the pitch copy to be true under either answer (e.g. "we'll find a speaking opportunity for your team" rather than "a guaranteed slot") until design settles the mechanism and whether `sponsors-handoff-notes.md` decision #26 needs a follow-up.
 - **Privacy promise:**
   - **Then** the page states that sponsors see totals, never who. The wording matches the privacy policy.
 - **Voice (P3):**
@@ -221,7 +222,7 @@ Proposed targets for the end of testing (28 Feb 2027). The product owner confirm
 ### Milestone 1: store-critical, live by Fri Nov 27 (S1–S2)
 | ID | Task | Area | Size | Depends on |
 |---|---|---|---|---|
-| W1-01 | Choose the web stack and hosting. It must serve W1 as static pages, then take Supabase Auth (Google + GitHub) and forms in W2 **without a rewrite**. Write the decision in `docs/decisions.md`. Decide by Nov 6 | frontend | S | — |
+| W1-01 | **Framework decided 2026-10-04: React.** Still open — *which* React setup, and hosting. The acceptance criteria already written (all content in the first HTML response, no client-side fetch, no skeleton, nothing clipped with JS off, link-preview meta tags) need **static generation or SSR**, not a plain client-rendered SPA (plain Create React App / Vite-SPA would fail "JavaScript turned off" and the link-preview checks). Pick a React framework that pre-renders (e.g. Next.js static export, Remix, Astro with React islands, Gatsby) and that can later take Supabase Auth (Google + GitHub) and forms in W2 **without a rewrite**. Write the specific choice and hosting target in `docs/decisions.md`. Decide by Nov 6 | frontend | S | — |
 | W1-C1 | Domain, fixed URLs (`/privacy`, `/terms`, `/delete-account`, `/about`, `/sponsor`) and two monitored inboxes (privacy, sponsors). Give the URLs to F2-06, F7-06 and F0-06 | content/ops | S | — |
 | W1-D1 | Design: web page template: header and navigation, footer with legal links, long-form prose (headings, lists, a data-inventory table), "last updated" block, 404, breakpoints from 320px, light and dark. It uses existing tokens and isn't a Compose port | design | M | — |
 | W1-02 | Repo, build, deploy on merge, preview deploy per pull request, custom domain with HTTPS, the last good version stays live if a build fails | frontend | M | W1-01, W1-C1 |
@@ -281,7 +282,7 @@ The Terms page uses the W1-04 template and the W1-05 gate, so it needs no extra 
 | AI-assisted review (one of the product owner's options) gives no qualified sign-off under the Data Protection Act | Legal exposure if the policy is wrong | If chosen, use it to draft and check against a DPA checklist, and record "no qualified review" as an accepted risk in `docs/decisions.md` | Product owner |
 | The engineers are Android/KMP specialists, new to the web stack | Estimates slip | Choose boring, well-documented tools (W1-01). Static first | Engineering |
 | A W1 stack that can't carry W2 auth and forms | A rewrite in W2 | W1-01's criterion: it must take Supabase Auth and forms later | Engineering |
-| The pitch overpromises (engagement features, impact report, speaking slots) | Sponsor trust, and conflict with design decision #26 | Claims check against the January build (W1-C8); OQ-W7 | Product owner + organizers |
+| The pitch overpromises on the speaking slot (resolved 2026-10-04 — sponsors can ask for one — but *how* it's granted isn't settled) | If it's written as a guarantee and design decides it must go through normal CFP review, the pitch is wrong and needs a reprint | Write provisional copy now (US-W1.4), lock final copy once design settles the mechanism and whether decision #26 needs a follow-up (see brief §9, question 4) | Product owner + design |
 | Email deletion requests: deleting the wrong account, or a slow reply | Harm to a member; DPA complaint | Identity check and reply time in W1-C3 and runbook F0-11 | Organizers |
 | W2 adds Google sign-in and sponsor/donor submissions | The privacy policy goes stale and needs a **second legal review** | Make "privacy policy revision + review" an explicit W2 task | Product manager (W2 scope) |
 | About Us publishes organizers' personal data | Consent problem | Written consent per person (W1-C9) | Organizers |
@@ -289,7 +290,7 @@ The Terms page uses the W1-04 template and the W1-05 gate, so it needs no extra 
 ### Assumptions
 - **Play deletion resource:** Play accepts a web page that names the app, shows the in-app steps and offers an email request route. Check this when filling in F0-06. If Play wants a form, that's an unauthenticated write, which pulls a W2-style task forward.
 - **Domain and inboxes:** the community owns a domain, or can get one cheaply, and can run two monitored inboxes on it.
-- **Hosting:** a free static tier is enough. There's no Supabase usage in W1.
+- **Hosting:** a free or cheap static/edge tier is enough once the specific React framework (W1-01) is chosen. There's no Supabase usage in W1.
 - **Editing:** organizers are comfortable editing Markdown through GitHub pull requests. They already use GitHub.
 - **One policy:** a single privacy policy covers the January app build and the W1 site. W2 revises it.
 - **Language:** English only.
@@ -302,10 +303,10 @@ The Terms page uses the W1-04 template and the W1-05 gate, so it needs no extra 
 | OQ-W1 | Which legal review route (in-house, hired, AI-assisted), who owns it, and can it finish the privacy policy by about Nov 20? Decide by Nov 6 | Product owner + organizers |
 | OQ-W2 | If the privacy review isn't done by Nov 27: slip Play closed testing, or knowingly publish an interim, internally reviewed policy for the organizer-only closed test? | Product owner |
 | OQ-W3 | The Welcome screen links "Terms" (F2-06, `onboarding-handoff-notes.md`). If the ToS isn't approved by Dec 23, do we drop the link from the January build, or hold the build? | Product owner + design |
-| OQ-W4 | Which web stack and hosting? Decide by Nov 6 (W1-01) | Engineering |
+| OQ-W4 | **Partly resolved 2026-10-04: React.** Still open — which React framework/meta-framework (it must pre-render — see W1-01 — a plain client-rendered SPA fails the "JS off" and link-preview criteria already written), and hosting. Decide by Nov 6 | Engineering |
 | OQ-W5 | Which domain, and who owns it and the two inboxes? | Organizers |
 | OQ-W6 | Is email enough for web deletion requests in W1, or do we need a stored form (W2)? How do we confirm a requester owns the account, and what reply time do we promise? Ties to OQ-8 | Product owner + organizers |
-| OQ-W7 | The pitch: describe planned items (engagement, impact report) as "planned", or leave them out? The brief's Call for Sponsors example lists a "speaking slot", but design decision #26 says sponsors never back sessions. Which is right? | Product owner + organizers |
+| OQ-W7 | **Resolved 2026-10-04: sponsors can ask for a speaking slot** (Huawei precedent, last year). **Not resolved: the mechanism.** Does the slot bypass CFP curation, or does the nominee still go through the normal review? This decides whether `sponsors-handoff-notes.md` decision #26 ("sessions curated through the open CFP only," no sponsored-session label) needs a follow-up, and whether the `SessionCard` "Sponsored" label (currently deprecated) comes back | Product owner + design |
 | OQ-W8 | The app links "Code of Conduct" from Welcome and Settings. Does it live on the web platform as a sixth W1 page (content exists? about S frontend + S content), or somewhere else? | Product owner |
 | OQ-W9 | Do we want cookieless page-view counts to measure the pitch (about S, plus a privacy policy line), or is the organizers' outreach log enough? | Product owner |
 | OQ-W10 | Who is the one engineer who owns W1, and which reserve thinner versions pay for the ~7.5 days? | Product owner + engineering |
