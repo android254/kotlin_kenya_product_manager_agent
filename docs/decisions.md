@@ -37,29 +37,28 @@
 
 **Status:** resolved — see "2026-10-04: Web platform shape decided" below. This entry stays for history.
 
-## 2026-10-04: Web platform shape decided; one open resourcing question before it's scoped
+## 2026-10-04: Web platform shape decided, built Nov–Dec by the same team, split into two sub-phases
 **Decision (product owner):** one web product, not two. Default role is `member`; a small set of accounts get `organizer`, which unlocks extra routes (reviewing Call for Speakers / Call for Sponsors / Call for Donations submissions, a financial status ledger, granting the organizer role). Same Supabase Auth and design system as the app. Full detail in `docs/web-platform-brief.md`.
 
-**App vs. web split (the product owner's framing, adopted as the working rule):** the app is the daily driver — anything offline, anything with state you come back to (tickets, drafts, check-in) stays there. The web platform is for walk-ins — people without the app doing a one-shot action (submit a form, read a page). Call for Speakers, Call for Sponsors and Call for Donations are the first three web surfaces because they're exactly that: one-shot public submissions.
+**App vs. web split (the product owner's framing, adopted as the working rule):** the app is the daily driver — anything offline, anything with state you come back to (tickets, drafts, check-in) stays there. The web platform is for walk-ins — people without the app doing a one-shot action (submit a form, read a page). Call for Speakers, Call for Sponsors and Call for Donations are the first three web surfaces because they're exactly that: one-shot public submissions. The door check-in scanner stays in the app — "organizer controls purely on web" was the product owner's first instinct, walked back the same day as "a bit optimistic"; it's a default for *new* organizer tooling, not a rule that moves already-decided features.
 
 **Also decided 2026-10-04, captured in `docs/web-platform-brief.md`:**
-- Call for Sponsors ("expects something in return": a speaking slot, booth, logo placement — a repeatable list, not a fixed dropdown) and Call for Donations ("no strings attached") are two distinct forms. Money for both likely flows through an existing **Open Collective account**; whether that needs one shared field or two separate ones is still a team decision, not yet made (see "Still open" below).
+- Call for Sponsors ("expects something in return": a speaking slot, booth, logo placement — a repeatable list, not a fixed dropdown) and Call for Donations ("no strings attached") are two distinct forms. Money for both likely flows through an existing **Open Collective account**; whether that needs one shared field or two separate ones is still a team decision (see "Still open").
 - Organizer financials are a **status ledger** (e.g. "pledged → invoiced → paid"), manually updated — not a read-only view, and explicitly not full accounting/reconciliation.
 - Web sign-in adds **Google** alongside GitHub (sponsor/donor contacts in finance or marketing mostly won't have GitHub). Apple sign-in stays iOS-app-only.
 - The Call for X forms require sign-in to submit — no anonymous submissions.
 - The web Call for Speakers writes to the same `talk_submissions` table the app uses — one CFP, two entry points, not two pots.
-- Granting the `organizer` role happens only on the web (manually in Supabase for the MVP, or a small admin screen later) — never in the app. The app stays lean; no new organizer features are added to it going forward.
-- The web platform also hosts: Terms of Service (net new, needs legal review), the Privacy Policy and the account-deletion request page (both already planned as `docs/mvp.md` tasks F0-04/F0-05 — this is their home instead of a one-off static page), an About Us page, a sponsor "what's in it for you" pitch, and a sponsor tier list (tiers can be earned with money and/or in-kind contributions such as venue — the definitions aren't set yet).
+- Granting the `organizer` role happens only on the web (manually in Supabase for the MVP, or a small admin screen later) — never in the app.
+- Sponsor tiers are a **hybrid model**: some tiers at a fixed money threshold, plus custom tiers for in-kind contributions (e.g. a venue host) that an organizer defines case by case. Exact thresholds and custom-tier names are still open.
+- The web platform also hosts: Terms of Service (net new, needs legal review), the Privacy Policy and the account-deletion request page (both already planned as `docs/mvp.md` tasks F0-04/F0-05 — this is their home instead of a one-off static page), an About Us page, and a sponsor "what's in it for you" pitch.
+- **Public pages ship first and separately.** The product owner confirmed this "100%": ToS, Privacy Policy, About Us, the sponsor pitch and the tier list can go live before any Call for X form exists. This is now **sub-phase W1**; the forms, auth, ledger and role-gating are **sub-phase W2**.
 
-**Changes the January plan, pending the resourcing answer below:** the product owner wants this built in **Nov–Dec 2026, alongside the Android app**, not deferred to the Feb–Apr "Next" bucket `docs/mvp.md` assumed. `docs/mvp.md` and `docs/scopes/mvp-january.md` are not changed by this entry — the Android feature list and the ~100 engineer-day budget stand as written, because whether the web build competes with that budget or runs on separate capacity isn't decided yet (next item).
+**Resourcing — decided, with a named risk:** built in **Nov–Dec 2026, by the same 4 engineers building Android**, not deferred to the Feb–Apr "Next" bucket `docs/mvp.md` assumed ("don't worry about us, we have enough coffee to spare"). `docs/mvp.md` and `docs/scopes/mvp-january.md` are **not changed** by this entry — the Android feature list and the ~100 engineer-day budget stand as written, which was already running ~8.5 days over before this additional scope. The accepted risk is that something gives: the Android list shrinks further, the January date slips, or the team sustains a harder pace than planned. Splitting into W1 (cheap, content-only) and W2 (the real engineering cost) is the mitigation on record — see `docs/web-platform-brief.md` §6.
 
 **Still open:**
-- **Resourcing for the Nov–Dec web build:** the same 4 engineers (something in the Android list shrinks or slips), or separate capacity (a 5th person, or organizers building it themselves with AI tooling)? Nothing in the Android MVP plan is cut until this is answered.
-- Whether Call for Sponsors and Call for Donations need one Open Collective field or two — pending a team meeting the product owner has already called.
-- Confirming that "organizer controls stay web-only" describes the *new* organizer surfaces in this brief, and doesn't reopen the already-decided in-app door check-in scanner (`docs/mvp.md` feature 5).
-- Sponsor tier definitions (what money and/or venue contribution earns which tier).
-- Who drafts and legally reviews the Terms of Service and Privacy Policy.
-- Sequencing: do the public content pages (ToS, Privacy, About, sponsor pitch, tier list) ship ahead of the Call for X forms?
+- Whether Call for Sponsors and Call for Donations need one Open Collective field or two — pending a team meeting the product owner has already called. **This blocks W2**, not W1.
+- The actual sponsor tier thresholds and custom-tier names.
+- Legal support for the Terms of Service and Privacy Policy — the product owner was explicit this is unresolved ("get legal support or build an agent from scratch, I don't know"). Blocks *publishing* those two W1 pages, not drafting them.
 
 Full open-questions list and reasoning: `docs/web-platform-brief.md`.
 
