@@ -55,12 +55,18 @@
 
 **Resourcing — decided, with a named risk:** built in **Nov–Dec 2026, by the same 4 engineers building Android**, not deferred to the Feb–Apr "Next" bucket `docs/mvp.md` assumed ("don't worry about us, we have enough coffee to spare"). `docs/mvp.md` and `docs/scopes/mvp-january.md` are **not changed** by this entry — the Android feature list and the ~100 engineer-day budget stand as written, which was already running ~8.5 days over before this additional scope. The accepted risk is that something gives: the Android list shrinks further, the January date slips, or the team sustains a harder pace than planned. Splitting into W1 (cheap, content-only) and W2 (the real engineering cost) is the mitigation on record — see `docs/web-platform-brief.md` §6.
 
-**Still open:**
+**Update 2026-10-04 — W1 scoped, and the mitigation above only half holds.** `task-scoper` sized W1 at `docs/scopes/web-platform-w1-public-pages.md`: about 7.5 engineering days, 3 design days, 8 content/ops days (5.5 of them new), plus an **unsized legal review with no owner**. W1 is cheap, as expected. **It is not well-timed:** the privacy policy and deletion page must be live by about Nov 27 so Play closed testing (F0-08) can start and clear its 14-day window before January, which pulls about 6 of the 7.5 engineering days into S1–S2 — the two busiest Android sprints — and puts the unowned legal review on the Android critical path (it needs to finish by about Nov 20). "Cheap and separable" turns out to mean the Android plan is now about **16 engineer-days over**, not 8.5, with the gap concentrated at the start of the build rather than spread out. The reserve thinner versions (≈14.5 days) can close most of it, but that's now a real trade, not a cushion.
+
+**New, higher-priority open questions, with Nov 6 deadlines on two of them** (full list and owners in the scope doc):
+- **Legal review route and owner** — still "I don't know" as of this conversation. If it can't finish by ~Nov 20, the product owner has to choose between slipping closed testing or publishing an internally-reviewed interim policy.
+- **A real conflict the scope caught:** the Call for Sponsors example in `docs/web-platform-brief.md` (§3, "a speaking slot" as something a sponsor could ask for) contradicts the standing design decision that **sponsors back whole events, never sessions** (designer repo, decision #26). One of the two is wrong and needs the product owner's call before the sponsor pitch page (or the W2 form) can be written honestly.
+- Web stack choice (must carry W2's auth and forms without a rewrite) and which one engineer owns W1 against which reserve thinner versions — both flagged for a Nov 6 decision.
+
+**Still open (carried over, unchanged):**
 - Whether Call for Sponsors and Call for Donations need one Open Collective field or two — pending a team meeting the product owner has already called. **This blocks W2**, not W1.
 - The actual sponsor tier thresholds and custom-tier names.
-- Legal support for the Terms of Service and Privacy Policy — the product owner was explicit this is unresolved ("get legal support or build an agent from scratch, I don't know"). Blocks *publishing* those two W1 pages, not drafting them.
 
-Full open-questions list and reasoning: `docs/web-platform-brief.md`.
+Full open-questions list and reasoning: `docs/web-platform-brief.md` and `docs/scopes/web-platform-w1-public-pages.md`.
 
 ## 2026-10-02: Stack for the MVP
 **Decision:** The app is Kotlin Multiplatform with Compose Multiplatform, for Android and iOS. The backend is Supabase (Postgres, Auth, Storage, Edge Functions) for the MVP.
