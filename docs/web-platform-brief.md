@@ -1,8 +1,8 @@
 # Web platform: product brief
 
-Last updated 2026-10-04 · Owner: product manager · Status: **draft, captures the product owner's vision from conversation. Not yet a scope — see "Before this becomes a scope" below.**
+Last updated 2026-10-04 · Owner: product manager · Status: **most open questions answered by the product owner; blocked on resourcing before it's a real scope — see §9 and "Before this becomes a scope" below.**
 
-This resolves the open decision in `docs/decisions.md` (2026-10-02: "one web product or two?") and the matching open question in `docs/prd.md` (§10). It does not change the January MVP (`docs/mvp.md`): the web platform stays in the **Next** bucket (Feb–Apr 2027), built after testing, unless the product owner decides to pull it forward. See "Where this sits in the roadmap."
+This resolves the open decision in `docs/decisions.md` (2026-10-02: "one web product or two?") and the matching open question in `docs/prd.md` (§10): one product, role-flagged. **It also changes the January plan**, pending §6: the product owner wants this built in Nov–Dec alongside the Android app, not deferred to Feb–Apr as `docs/mvp.md` assumed — but whether that's free (separate capacity) or comes out of the already-tight Android budget is still unanswered. See "Where this sits in the roadmap."
 
 ## 1. The split: app vs. web
 
@@ -21,13 +21,14 @@ This resolves the open decision in `docs/decisions.md` (2026-10-02: "one web pro
 - **`member`** — the default. Everyone who signs in starts here. This is the existing `role` column on `profiles` (`docs/decisions.md`, stack decision) — no new auth concept, just a value the web reads to decide what to render.
 - **`organizer`** — a small, named set of people (today's co-organizing team). Same login, more surface area.
 
-| Surface | everyone, no login (public) | member | organizer |
+| Surface | everyone, no login (public) | member (signed in) | organizer |
 |---|---|---|---|
 | Public pages — ToS, Privacy Policy, About Us, sponsor pitch, sponsor tier list | ✅ read | ✅ read | ✅ read |
-| Call for Speakers — submit a talk | — (see open question 4) | ✅ submit | ✅ submit, **and** see every submission (today: in Supabase Studio; this brief proposes a web view replaces that) |
-| Call for Sponsors — submit a request | — (see open question 4) | ✅ submit | ✅ see every submission |
-| Call for Donations — submit a pledge/gift | — (see open question 4) | ✅ submit | ✅ see every submission |
-| Financials (sponsorship status, totals) | ❌ | ❌ | ✅ |
+| Call for Speakers — submit a talk | ❌ sign-in required (decided 2026-10-04 — see §5) | ✅ submit, into the same `talk_submissions` table the app uses (one CFP, two entry points — confirmed 2026-10-04) | ✅ submit, **and** see every submission (today: in Supabase Studio; this brief proposes a web view replaces that) |
+| Call for Sponsors — submit a request | ❌ sign-in required | ✅ submit | ✅ see every submission |
+| Call for Donations — submit a pledge/gift | ❌ sign-in required | ✅ submit | ✅ see every submission |
+| Financials — **a status ledger** (decided 2026-10-04: not full reporting, not visibility-only — see §4) | ❌ | ❌ | ✅ |
+| Grant the `organizer` role | ❌ | ❌ | ✅ — **web only**, see §8 |
 
 This is one product, one deployment, one login. The organizer-only pages are routes gated by `role = 'organizer'` (RLS on the read, same pattern as the app) — not a second site. That's the "feature flagging as per your role" you described.
 
@@ -50,37 +51,38 @@ Proposed shape (for the task-scoper to turn into real fields once confirmed):
 
 ### Call for Donations — *no strings attached*
 "Offerings to the church," as you put it. No expectation fields, because there's no expectation. Proposed shape:
-- Name (or anonymous)
+- Name (sign-in required to submit — see §5, so this is never truly anonymous on our side)
 - Amount or in-kind description
 - Optional note
 - Status, visible only to organizers
 
-**🔴 This is the one piece that needs a real decision before it's buildable, not just designable:** is a "Call for Donations" submission a **pledge/expression of interest** that an organizer follows up on manually (M-Pesa, bank transfer, in person) — or does the web platform actually **collect money**? The PRD currently has "no paid ticketing and payments" as an explicit assumption and out-of-scope item for the *product* (not just the MVP). If donations touch money directly, that assumption needs revisiting, and it drags in payment processing, reconciliation, receipts, and probably legal/tax questions that a feature-flag decision doesn't answer by itself. I'd treat "web platform takes a donor's intent, organizers handle the money offline" as the safe default until you say otherwise.
+**Update 2026-10-04 — partly resolved, one piece still needs a team meeting:** there's an existing **Open Collective account**. That answers the hard part of the original question — the platform itself doesn't need to build payment processing, reconciliation or receipts; money moves through Open Collective, which already handles that transparently, and our web platform captures the submission/pledge and (presumably) links out to or references the Open Collective flow for the actual transfer. That keeps the PRD's "no paid ticketing and payments" assumption intact for *our own systems*.
+
+**Still open, and explicitly deferred to a team decision:** whether Call for Sponsors and Call for Donations need **two separate Open Collective "fields"** (likely two separate collectives, or two tiers/funds within one) so the money itself stays separated the same way the forms are separated — "church and state" applying to the ledger, not just the UI. You flagged this needs a team conversation regardless of what I'd propose, so I'm not proposing anything here — just noting that the web form design (one submission flow or two, and where each one points) is blocked on that meeting's outcome.
 
 ## 4. "Financials" for organizers
 
-You mentioned organizers seeing "financials if needed" alongside sponsorship submissions. Before this is scoped I need to know what that actually means, because the engineering cost is very different depending on the answer:
+**Decided 2026-10-04: option (b), a status ledger.** Not visibility-only (a) and explicitly not full reporting (c) — "we don't need to see everything, it's going to be a complex thing to build."
 
-- **(a) Visibility only** — organizers see what sponsors offered and what they asked for, and what donors pledged. No ledger, no accounting. (Cheapest — basically a filtered view of the two tables above.)
-- **(b) A lightweight status/ledger** — "Kasha Health: KES 150,000 pledged, invoiced, paid" — tracked in the platform. (More: needs a status model, probably manual entry by an organizer, not derived from anything automatic.)
-- **(c) Real financial reporting** — reconciliation against actual bank/M-Pesa records, totals, reporting over time. (Much more — this starts to look like lightweight accounting software.)
-
-My read of "financials if needed" is (a) or (b), not (c) — but I'm flagging it rather than assuming.
+So the shape is: a status per submission — something like "Kasha Health: KES 150,000 pledged → invoiced → paid" — tracked and updated manually by an organizer in the platform, not derived automatically from bank or M-Pesa records, and not reconciled against anything external. This is a status field on top of the Call for Sponsors / Call for Donations submissions, not a separate accounting system. Given the Open Collective account (§3), the actual money and any real reconciliation lives there; this ledger is organizers tracking *where a submission is in the process*, in our own platform, alongside it.
 
 ## 5. Same login, same design system
 
-- **Login:** same Supabase Auth as the app. Today that's GitHub only (Apple comes with iOS). **Open question carried over from the PRD (§10):** is GitHub-only workable for web walk-ins? A sponsor's finance contact or a one-off donor is exactly the person least likely to have a GitHub account. The PRD already flags "add email or Google sign-in if testers without GitHub get stuck" for the app; for web walk-ins specifically, I think this stops being optional. 🔵 Needs a decision.
-- A related question: should *submitting* a Call for Sponsors/Donations/Speakers form require sign-in at all? Most sponsor and donor intake forms elsewhere don't gate on an account — they just ask for contact details on the form itself. Requiring sign-in adds friction for exactly the "walk-in" audience this platform is for. Proposed default: **forms are submittable without sign-in** (just name + email), and only the *organizer views* of submissions require the `organizer` role. Flag if you disagree.
+- **Login — decided 2026-10-04: GitHub + Google.** Same Supabase Auth as the app, but web adds a **Google** sign-in provider on top of GitHub, because finance and marketing contacts on the sponsor/donor side mostly won't have GitHub accounts. (Apple sign-in stays an iOS-app-only thing, per the existing decision in `docs/decisions.md` — it's not relevant to web.) **Engineering follow-up:** add a Google OAuth app and wire it into Supabase Auth for the web client; this is new work, the app today only has GitHub configured.
+- **Decided 2026-10-04: the Call for X forms require sign-in to submit.** Not anonymous, not just contact details on the form — "it's easier to keep track when we don't have anonymous data." This simplifies the public-access row in §2's table (there's no unauthenticated submission path to design for) but it does mean a sponsor or donor's very first interaction with the platform is "create an account," which is worth being honest about as friction — if it turns out to block real sponsors/donors during testing, this is the first thing I'd revisit.
 - **Design system:** same tokens, same components, same voice as the app (Figma file, `docs/*-handoff-notes.md`). Web gets its own layout (it's not Compose), but it should read as the same product. This is a design-team task once the above is settled enough to brief them.
 
-## 6. Where this sits in the roadmap
+## 6. Where this sits in the roadmap — decided to build now, resourcing still needs an answer
 
-`docs/mvp.md` currently has **"no organizer web platform in the MVP"** — organizers run everything through Supabase Studio until "Next" (Feb–Apr 2027). This brief doesn't change that by itself. Two honest options:
+**Decided 2026-10-04: build it now, in Nov–Dec, not Feb–Apr.** Your reasoning — everyone has AI tooling, so it can move fast in parallel — I want to flag rather than just accept at face value, because it changes a plan that's already committed and already tight:
 
-- **(a) Leave it in Next.** This brief becomes the starting point for that phase's scope once January testing is done and the 4 engineers are free. Nothing changes for Nov–Dec.
-- **(b) Pull a thin slice forward.** The three Call for X forms are small, don't need the app's offline machinery, and don't block on anything else — they could plausibly be a tiny parallel scope in Nov–Dec if someone has slack. I would **not** recommend this: it competes directly with the Android build for the same 4 engineers, and the MVP is already ~8.5 engineer-days over budget before any thinner versions are applied (`docs/scopes/mvp-january.md`). Pulling web forward needs the product owner to explicitly accept a later Android date or a 5th engineer, not a quiet scope-creep.
+- `docs/mvp.md` set the January MVP at **~100 engineer-days of feature work from 4 engineers**, and `docs/scopes/mvp-january.md` already has it running **~8.5 engineer-days over that budget before any of the "thinner version" cuts are applied.** That's the Android app alone — nothing in it assumed a web platform would also be built in the same window.
+- This brief adds real, non-trivial scope on top: three forms with different field shapes, a status ledger, Google OAuth, role-gated organizer views, five content pages (one needing legal review), and a sponsor tier model that doesn't exist yet. AI tooling speeds up writing code; it doesn't remove the need to design the tier list, get the ToS reviewed, decide the Open Collective split, or test that the status ledger does what organizers need. Those are the slow parts here, not the typing.
+- **So the real question isn't "can we," it's "with whose time":**
+  1. Is this built by the **same 4 engineers**, meaning it now competes with an Android scope that's already over budget — something in `docs/mvp.md`'s feature list has to shrink further or slip?
+  2. Or is this **separate capacity** — a 5th person, or organizers themselves building the web platform alongside the 4 engineers on Android — in which case the Android plan doesn't need to move at all?
 
-**My recommendation: (a).** Write and size this properly once the open questions below are answered, size it for Feb–Apr, and don't touch the Nov–Dec plan.
+I haven't assumed an answer and haven't touched the Android MVP scope. **I need you to tell me which of those two it is** before I treat "ship in Nov–Dec" as a plan rather than an intent — it's the difference between "this is free" and "something else on the Android list gets cut or slips."
 
 ## 7. Public pages
 
@@ -97,20 +99,24 @@ You also want the web platform to carry the "front door" content that currently 
 
 **Why this matters for the Call for Sponsors form (§3):** right now that form asks sponsors to free-text "what you're offering." If a tier list with defined thresholds exists, the form should probably reference it directly — e.g., "Which tier are you aiming for?" with the tier list's criteria shown inline — rather than asking sponsors to describe their offer from nothing. I'd sequence the tier list *before* finalizing the form's fields.
 
-## 8. Open questions — need an answer before this is a scope
+## 8. Organizer role management, and the app/web boundary
+
+**Decided 2026-10-04:** all organizer controls live on the web, none in the app — "we would like to keep the app lean." Granting the `organizer` role itself is **web-only too**: manually in Supabase for the MVP, or a small admin screen on the website later. Nothing about role-granting touches the app.
+
+**🟡 One thing I want to confirm rather than assume, because it would reverse an already-built decision:** the Jan MVP (`docs/mvp.md` feature 5, `docs/decisions.md` offline-first section) already has an **organizer-only check-in scanner inside the app** — scanning attendee QR tickets at the door, deliberately in-app because it's camera-driven, venue-side, and the one place offline matters most ("door check-ins... this is where offline matters most"). I'm reading "organizer controls purely on web" as describing the **new** organizer surfaces this brief introduces — reviewing Call for X submissions, the financial status ledger, granting roles — not as an instruction to move the door scanner out of the app. If that reading is wrong and you do want the scanner moved to web, say so explicitly, because it reopens a decision that's already shaped January's build. Otherwise I'm treating the app as lean **going forward** (no new organizer features added to it) while the scanner stays where it already is.
+
+## 9. Open questions — remaining after 2026-10-04
+
+Resolved this round: donations' payment mechanism (Open Collective, though the two-field split is pending a team meeting), the financials ledger scope, Google sign-in, sign-in-required forms, the shared `talk_submissions` table, and where organizer role-granting lives. Still open:
 
 | # | Question | Who decides |
 |---|---|---|
-| 1 | Call for Donations: pledge/intent only, or does the platform actually collect money? | Product owner (+ legal/tax advice if money moves) |
-| 2 | "Financials" for organizers: visibility only, a status/ledger, or real reporting? (§4, options a/b/c) | Product owner + organizers |
-| 3 | Is GitHub-only sign-in acceptable for web walk-ins, or do we need email/Google sign-in for web specifically? | Product owner |
-| 4 | Do the Call for X forms require sign-in to submit, or just contact details on the form? | Product owner |
-| 5 | Does the web Call for Speakers write to the same `talk_submissions` table as the in-app flow (one CFP, two entry points), or is it separate? | Engineering |
-| 6 | Does this ship in the Next phase (Feb–Apr 2027) as planned, or does the product owner want a thin slice pulled into Nov–Dec at the cost of Android scope? | Product owner |
-| 7 | Who grants the `organizer` role to an account, and how (Studio today — same mechanism on web)? | Organizers + engineering |
-| 8 | What defines each sponsor tier — fixed money thresholds, named in-kind equivalents (e.g. "hosting a venue = Gold"), or organizer judgement case by case? Is "venue" the only non-money contribution type, or are there others (products, services, swag)? | Product owner + organizers |
-| 9 | Who writes and legally reviews the Terms of Service and Privacy Policy text — is there any legal support, or does the core team draft them? | Organizers |
-| 10 | Can these public pages (ToS, Privacy, About, sponsor pitch, tier list) ship as static content ahead of the Call for X forms, so there's something live even before the forms are built? | Product owner |
+| 1 | **Blocking a team meeting you've already called:** one Open Collective field/collective for both Call for Sponsors and Call for Donations, or two separate ones, so the money stays separated the way the forms are? | Product owner + team |
+| 2 | **Resourcing, see §6 — this is the one I most need an answer to:** is the Nov–Dec web build done by the same 4 engineers (something in the Android MVP list shrinks or slips), or by separate capacity (a 5th person, or organizers building it themselves)? | Product owner |
+| 3 | Confirming §8: does "organizer controls purely on web" include moving the already-decided in-app door check-in scanner to web, or does it only apply to the new organizer surfaces this brief adds? | Product owner |
+| 4 | What defines each sponsor tier — fixed money thresholds, named in-kind equivalents (e.g. "hosting a venue = Gold"), or organizer judgement case by case? Is "venue" the only non-money contribution type, or are there others (products, services, swag)? | Product owner + organizers |
+| 5 | Who writes and legally reviews the Terms of Service and Privacy Policy text — is there any legal support, or does the core team draft them? | Organizers |
+| 6 | Can the public pages (ToS, Privacy, About, sponsor pitch, tier list) ship ahead of the Call for X forms, so something is live before the forms are built — relevant now that both are happening in the same Nov–Dec window? | Product owner |
 
 ## Before this becomes a scope
-Once questions 1–4 have answers, this is ready for `task-scoper` to turn into user stories, acceptance criteria and a sized task breakdown — the same way `docs/scopes/mvp-january.md` was built. I haven't done that yet because two of the open questions (donations handling money, and what "financials" means) change the size of the work by a large margin, and deciding that silently isn't mine to do.
+Most of the field-level questions are answered now. What's left blocking a real scope is **resourcing (§9, question 2)** — I can't size or sequence this against the Nov–Dec Android plan without knowing whose time it's coming from — and, to a lesser extent, the Open Collective split (§9, question 1), which affects the Call for Sponsors/Donations form design directly. Once you've settled resourcing, this is ready for `task-scoper` to turn into user stories, acceptance criteria and a sized task breakdown, the same way `docs/scopes/mvp-january.md` was built — and if it's running in the same Nov–Dec window as Android, it should probably get its own scope doc immediately so it's visible in the same planning view as the rest of the build.
