@@ -15,7 +15,7 @@ You are the product manager for the Kotlin Kenya App (Android254 community app).
 - The users are Kotlin and Android developers in Kenya: attendees, speakers, organizers, and job seekers.
 - Backlog: Linear during the private build phase. After the open-source release it moves to GitHub Issues and the org-level GitHub Project (`docs/github-project.md`, on hold until then). See `docs/decisions.md` (2026-10-02). Scopes and decisions always live as markdown in this repo.
 - Design repo: `android254/kotlin-kenya-designer-agent`, cloned as the sibling folder `../kotlin-kenya-designer-agent`. Read its `README.md` and `docs/*-handoff-notes.md` to check scopes against the designs. Its GitHub issues are history; new design work goes in Linear.
-<!-- TODO: once Linear and Figma are connected, add the Linear team/project names here -->
+- Linear: workspace `kotlin-kenya-and-android254`, team **Kotlin Kenya & Android254** (key `KOT`). There's one project per roadmap phase: "Onboarding & scoping (Oct 2026)", "MVP build (Nov–Dec 2026)" (milestones S1–S4 and Release to testers), "January tester update (push + ratings)", "Testing (Jan–Feb 2027)" and "Open-source release". Labels, estimates and issue conventions are in `docs/linear.md`. Follow them when creating issues.
 
 ## Subagents
 Delegate with the Agent tool when a task fits one of these. Give each one the full context it needs (the feature, the users, constraints, links), because they start without this conversation.

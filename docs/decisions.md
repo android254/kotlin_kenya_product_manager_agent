@@ -30,7 +30,7 @@
 
 **Still open:**
 - Which parts of the organizer and sponsor work stay private in Linear after the release? This depends on the web platform split.
-- Should the designer repo's README point its work queue at Linear? It can't until the Linear workspace exists.
+- Should the designer repo's README point its work queue at Linear? The workspace now exists; tracked as KOT-7.
 
 ## 2026-10-02: Scope covers the app and a web platform (still open)
 **What we know:** Besides the Compose Multiplatform app, we're building a web platform. It serves two groups: the public, and organizers. It could be two separate products, or one product where organizer features are switched on only for organizers.
@@ -120,3 +120,34 @@ Together they save about 10 days. The other thinner versions (T3, T5, T8–T12, 
 - Offline first adds groundwork up front: the local database, the sync and outbox engine, and conflict rules. Reusable modules pay that back across features.
 - The net effect is being re-estimated in `docs/scopes/mvp-january.md`.
 - Offline tickets, which the MVP had cut, become cheap on this foundation.
+
+## 2026-10-02: Linear set up with one project per phase
+**Decision (PM, product owner asked to finish the groundwork):** Linear projects follow the roadmap phases, not feature areas. MVP sprints are milestones in the build project. Feature areas are labels. Details are in `docs/linear.md`.
+
+**Why:** Phases have dates and a clear "done", so Linear's project progress and roadmap views show whether January is on track. Feature areas cut across phases, so labels fit them better. The Layer labels (Domain, Local data and so on) make the clean-architecture split visible, so tasks can run in parallel.
+
+**What was created:**
+- Projects: Onboarding & scoping (Oct 2026), MVP build (Nov–Dec 2026), January tester update (push + ratings), Testing (Jan–Feb 2027), Open-source release.
+- Milestones S1–S4 and Release to testers in the MVP build project.
+- Labels: priority (`must fix` / `should fix` / `nice to have`) and `documentation`. Sponsors, Push reminders and Post-event ratings were added to Feature area.
+- Issues KOT-5 to KOT-17: manual setup, the re-estimate, the import, and the open questions (OQ-3 to OQ-17, plus the web platform).
+- Linear's sample issues KOT-1 to KOT-4 were cancelled or marked as duplicates.
+
+**Not done yet, on purpose:** the MVP tasks aren't imported as issues. The scope is being re-estimated for offline-first (KOT-8). Importing now would mean redoing about 100 issues. The import is KOT-9, after KOT-8.
+
+**Open (product owner):** the team's GitHub Issues sync is on and points at the designer repo. Every KOT issue is now mirrored there (#28 to #40). Keep that, move it to a PM or app repo, or turn it off? The repo is private, so nothing has leaked. But organizer and PM questions are landing in design's queue.
+
+## 2026-10-08: Team views in Linear use labels, not sub-teams
+**Decision:** We stay on one Linear team (`KOT`). Product, Mobile, Backend and Web are a single-select **Team** label, and each has a shared saved view. Setup and links are in `docs/linear.md` under "Teams and views".
+
+**Why labels and not sub-teams:**
+- **One build rhythm.** Sprints S1–S4 are feature slices that cut across Mobile and Backend (e.g. F4 RSVP is a Supabase function plus a screen). Separate teams would mean separate cycles, and one feature's tasks would be spread across them.
+- **The Linear Free plan caps teams.** The workspace shows "Free plan", which allows only a couple of teams. Four sub-teams would push us onto a paid plan before anyone has joined.
+- **The move to GitHub stays cheap.** One team means one `KOT-` key, one GitHub sync and one set of labels to carry over at release. The Team label maps straight to a GitHub label or field.
+- **Adding people is easy.** A new member only needs their team's view, with no team membership or permissions to set up.
+
+**Look at this again if:** a team needs its own cycle length, workflow states or triage rota; a team grows past about 5 regular contributors; or we move to a paid plan for other reasons. Moving to sub-teams then means moving issues across, which changes their keys. So do it at a phase boundary (for example between Testing and the Open-source release), not mid-sprint.
+
+**Also decided:**
+- KOT-43 (offline check-in and ticket caching) stays with **Mobile**. If it becomes a server-side ticket-checking task, that part gets its own Backend issue linked as *blocked by*.
+- Team leads and issue assignment wait until everyone has joined Linear. Until then, unassigned issues stay unassigned. The team views are where people find their work.

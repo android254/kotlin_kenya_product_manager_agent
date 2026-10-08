@@ -1,6 +1,6 @@
 # Roadmap
 
-Last updated 2026-10-02. Dates are targets, not promises.
+Last updated 2026-10-02. Dates are targets, not promises. Each phase is a Linear project (`docs/linear.md`).
 
 | When | Phase | Goal | Where we plan |
 |---|---|---|---|
