@@ -92,7 +92,7 @@ Three buckets (agreed 2026-10-02):
 ## Decisions needed
 | Question | Who decides |
 |---|---|
-| Is this the right cut for January (the table above)? | Product owner and organizers |
+| ~~Is this the right cut for January (the table above)?~~ **Answered 2026-10-08:** the team is comfortable with this scope. See `docs/decisions.md`. | Product owner and organizers |
 | When does iOS come back, and with native chrome or shared UI? (After testing) | Product owner, engineering and design |
 | Is Supabase Studio enough as the organizer tool until the web platform? | Organizers |
 | Is GitHub (plus Apple) sign-in enough, or do we need email sign-in for members without GitHub? | Product owner |

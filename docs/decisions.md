@@ -1,5 +1,47 @@
 # Decisions
 
+## 2026-10-08: Team meeting outcomes — legal route, app scope accepted, web timing firmed up, app build starts with domain models + design system
+
+**Source:** product owner's recap of a team meeting held 2026-10-07/08. Captured here because it touches four separate open items across this file, `docs/mvp.md` and `docs/meeting-brief-2026-10-07.md`. Where the recap doesn't name specifics (who, exact dates), this entry says so rather than guessing.
+
+### 1. Legal review route for sensitive documents — partly resolved
+**Decision:** a named person on the team (not yet specified to this agent) will consult a legal professional for sponsorship terms, Terms of Service, Privacy Policy, and any other sensitive document. This agent continues to **design and build the scaffolding** for those documents now — page structure, sections, placeholders, where they live on web vs. app — and drops the real legal text in once it's delivered, rather than waiting idle.
+
+This answers part of `docs/meeting-brief-2026-10-07.md` Decision #2 ("in-house, hired, or AI-assisted?"): the route is **professional review**, not AI-assisted or purely in-house. It does **not** answer the rest of that decision:
+- **Who** owns it, by name.
+- Whether the **~Nov 20** deadline (needed so the Privacy Policy can clear Play's 14-day closed-testing window before January) is achievable with an outside professional's turnaround time.
+- The fallback if the review slips (`docs/meeting-brief-2026-10-07.md` #11, #12) is still unanswered.
+
+**What this means now:** W1's scope (`docs/scopes/web-platform-w1-public-pages.md`) already treats legal review as an unsized, unowned dependency. That doesn't change — it's now "unsized, owned by someone unnamed, route = professional." The scaffolding work (page shells, CMS/markdown structure, placeholder copy marked clearly as non-final) can proceed in parallel and is not blocked on the lawyer.
+
+### 2. App scope of work — accepted
+**Decision:** the team is comfortable with the app's scope of work as currently written. Taken as confirming `docs/mvp.md`'s 11-feature cut and answering its own "Is this the right cut for January?" row in that file's Decisions needed table.
+
+**Not covered by this:** the Oct 7 meeting-brief's other open items — the Open Collective field split (#1), who owns W1 and which thinner versions pay for it (#3), the React framework/hosting pick (#4), the sponsor speaking-slot mechanism (#5), sponsor tier thresholds (#6), and the rest (#7–#12) — were not mentioned in this recap. Treating them as **still open** until confirmed otherwise.
+
+### 3. Web platform: public pages first, then Call for Speakers/Sponsors — both before January
+**Decision:** the site starts with the public-facing pages (W1), then moves to Call for Speakers and Call for Sponsors (part of W2), and the team wants **all of it live before January 2027**, alongside the app.
+
+**Why this needs a flag, not a quiet yes:** this is firmer than anything on record. `docs/web-platform-brief.md` and the Oct 7 meeting brief both treat W2 as **not yet scoped** (blocked on the Open Collective decision) and the Nov–Dec Android plan as already ~8.5–16 engineer-days over budget from W1 alone, on the same 4 engineers. Committing W2 to "before January" without having sized it is a scope decision made ahead of the estimate. One team member's read that Call for Speakers/Sponsors "can be done with AI easily" is **an optimistic assumption, not a size** — it hasn't been tested against this app's actual stack (Supabase RLS, the `talk_submissions` table shared with the app, sign-in, the ledger) the way W1 was. Recommend sizing W2 for real (task-scoper) before the January commitment is treated as fixed, the same way W1 went from assumption to a real ~7.5-day number that turned out to land on the two busiest Android sprints.
+
+**Open:** does "before January" include Call for Donations too, or only Speakers/Sponsors as stated? The recap named only the latter two.
+
+### 4. App build order: domain models and the design system come first, before feature work splits
+**Decision:** the Nov–Dec app build starts with two reusable foundations, built in parallel, ahead of any feature screen:
+1. **Domain models** — extract the actual domain classes the app needs from the designs (Event, Session, Speaker, Sponsor, Job, Profile, Talk/submission, Ticket/RSVP, etc.), with each field marked **nullable or non-nullable**, matching what each screen in the Figma file actually shows and what the Supabase schema has to hold.
+2. **Reusable components and the design system** — the shared UI kit (tokens, core components) the MVP screens draw on.
+
+Once both exist, feature work (the local data source, the remote data source, the repository, the UI — per the 2026-10-02 clean-architecture decision below) can be split across engineers without anyone blocking on anyone else.
+
+**Relationship to existing decisions:** this doesn't introduce a new architecture — it's the concrete, sequenced version of the 2026-10-02 "clean architecture, modular, offline first" decision's "domain layer is defined first for each feature" line. What's new is treating domain-model extraction as its own named, scoped, Figma-sourced task rather than something each feature scope does for itself, and explicitly tying it to the already-decided thinner version **T1** (stock M3 components, not the full 127-component library) so the design-system half doesn't quietly re-expand scope.
+
+**Action:** scoped as its own task breakdown — see `docs/scopes/foundation-domain-models-design-system.md` (in progress).
+
+**Still open:**
+- Who on the team owns the legal consult, and whether the ~Nov 20 deadline holds with a professional's turnaround (item 1).
+- The Oct 7 meeting-brief's items #1, #3–#12 — not addressed in this recap.
+- Whether "before January" for the web platform is a hard commitment or a target the team will revisit once W2 is actually sized.
+
 ## 2026-10-02: Linear while we build, GitHub Issues once we open source
 **Decision:** The core team plans in Linear during the private build phase. When the app is released as open source, the backlog moves to GitHub Issues and the org-level GitHub Project (`docs/github-project.md`).
 
